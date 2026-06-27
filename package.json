@@ -1,0 +1,17 @@
+{
+  "name": "fastifyandgraphql",
+  "packageManager": "yarn@4.12.0",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.2.0",
+    "@fastify/formbody": "^8.0.2",
+    "@fastify/helmet": "^13.0.2",
+    "dotenv": "^17.4.2",
+    "fastify": "^5.8.5",
+    "graphql": "^17.0.1",
+    "mercurius": "^16.9.0",
+    "mongoose": "^9.7.3",
+    "node-ts": "^8.0.12",
+    "typescript": "^6.0.3"
+  }
+}
