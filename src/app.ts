@@ -3,9 +3,9 @@ import formbody from '@fastify/formbody'
 import cookie from "@fastify/cookie";
 import helmet from '@fastify/helmet'
 import dbconection from "./dbconection";
-// import { routes } from "./route";
 import mercurius from "mercurius";
-import { registeruser } from "./controller";
+import { queryapi } from "./controller";
+import { graphqlschema } from "./routeschema";
 
 
 const app=fastify({logger:true});
@@ -14,23 +14,10 @@ const app=fastify({logger:true});
 app.register(formbody)
 app.register(cookie)
 app.register(helmet)
-const graphqlschema=`
-type RegisterResponse {
-    success:Boolean!
-    message:String!
-}
 
-type Mutation {
-registerUser(email:String!,password:String!):RegisterResponse
-}
-
-type Query {
-    _empty: String
-}
-`;
 app.register(mercurius,{
     schema:graphqlschema,
-    resolvers:registeruser,
+    resolvers:queryapi,
     graphiql:true
 })
 
