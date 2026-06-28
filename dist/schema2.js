@@ -6,6 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.collection2 = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const schema2 = new mongoose_1.default.Schema({
+    // userid:{
+    //     type:String,
+    //     required:true,
+    //     unique:true
+    // },
     name: {
         type: String,
         required: true
@@ -15,10 +20,10 @@ const schema2 = new mongoose_1.default.Schema({
         required: true,
         unique: true
     },
-    age: {
-        type: Number,
+    password: {
+        type: String,
         required: true
     }
-});
+}, { timestamps: true });
 exports.collection2 = mongoose_1.default.model("user2", schema2);
 //# sourceMappingURL=schema2.js.map

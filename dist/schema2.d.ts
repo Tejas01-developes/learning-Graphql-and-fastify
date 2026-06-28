@@ -1,58 +1,68 @@
 import mongoose from "mongoose";
 export declare const collection2: mongoose.Model<{
-    email: string;
     name: string;
-    age: number;
-}, {}, {}, {
+    email: string;
+    password: string;
+} & mongoose.DefaultTimestampProps, {}, {}, {
     id: string;
 }, mongoose.Document<unknown, {}, {
-    email: string;
     name: string;
-    age: number;
-}, {
+    email: string;
+    password: string;
+} & mongoose.DefaultTimestampProps, {
     id: string;
-}, mongoose.DefaultSchemaOptions> & Omit<{
-    email: string;
+}, {
+    timestamps: true;
+}> & Omit<{
     name: string;
-    age: number;
-} & {
+    email: string;
+    password: string;
+} & mongoose.DefaultTimestampProps & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
 }, "id"> & {
     id: string;
-}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
-    email: string;
-    name: string;
-    age: number;
-}, mongoose.Document<unknown, {}, {
-    email: string;
-    name: string;
-    age: number;
+}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, {
+    timestamps: true;
 }, {
-    id: string;
-}, mongoose.DefaultSchemaOptions> & Omit<{
-    email: string;
     name: string;
-    age: number;
-} & {
+    email: string;
+    password: string;
+} & mongoose.DefaultTimestampProps, mongoose.Document<unknown, {}, {
+    name: string;
+    email: string;
+    password: string;
+} & mongoose.DefaultTimestampProps, {
+    id: string;
+}, Omit<mongoose.DefaultSchemaOptions, "timestamps"> & {
+    timestamps: true;
+}> & Omit<{
+    name: string;
+    email: string;
+    password: string;
+} & mongoose.DefaultTimestampProps & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
 }, "id"> & {
     id: string;
 }, unknown, {
-    email: string;
     name: string;
-    age: number;
+    email: string;
+    password: string;
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
 }>, {
-    email: string;
     name: string;
-    age: number;
+    email: string;
+    password: string;
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {

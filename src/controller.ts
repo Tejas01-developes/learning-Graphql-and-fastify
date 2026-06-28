@@ -1,117 +1,68 @@
-
-import { collection1 } from "./schema";
-import { collection2 } from "./schema2";
-
-interface RegisterArgs {
-  name?:string
-  age?:number
-    email?: string;
-    password?: string;
-  }
-  interface Register2 {
-    name?:string
-    age?:number
-      email?: string;
-      
-    }
+// import { accesstoken } from "./generatetokens";
+import { logintype, registerusertype } from "./interfaces"
+import { collection2 } from "./schema2"
+// import crypto from 'crypto'
+import bcrypt from 'bcrypt';
 
 export const queryapi={
+
 Mutation:{
-    registeruser:async(_parent:any,args:RegisterArgs,_context:any,_info:any)=>{
-        const{email,password}=args
+registeruser:async(_parent:any,args:registerusertype,_context:any)=>{
+const{name,email,password}=args
 
-        if (!email || !password) {
-            throw new Error("User details missing");
-          }
-          try{
-          await collection1.create({ email, password });
-          return {
-            success: true,
-            message: "user registered"
-          };
-    }catch(err){
-        console.error(err);
-        throw new Error("register api failed");
-    }
-},
-
-
-register2:async(_parent:any,args:Register2,_context:any,_info:any)=>{
-const{name,email,age}=args
-if (!name || !email || !age) {
-  throw new Error("User details missing");
+if(!name || !email || !password){
+  return {
+    success:false,
+    message:"user datail is not there"
+  }
 }
 try{
-await collection2.create({name,email,age})
-return{
-  success:true,
-  message:"user2 registered"
-}
+  const hash=await bcrypt.hash(password,10)
+  await collection2.create({name,email,password:hash})
+  return{
+    success:true,
+    message:"User registered succesfully"
+  }
 }catch(err){
   return{
     success:false,
-    message:"register failed"
+    message:"registration failed"
   }
-}
+}},
+
+// loginuser:async(_parent:any,args:logintype,_context:any)=>{
+// const{email,password}=args
+
+// if(!email || !password){
+//   return {
+//     success:false,
+//     message:"user datail is not there"
+//   }
+// }
+// const res=await collection2.findOne({email})
+// if(!res){
+//   return {
+//     success:false,
+//     message:"user is not there"
+//   }
+// }
+// const compare=await bcrypt.compare(password,res.password)
+// if(!compare){
+//   return{
+//     success:false,
+//     message:"password is incorrect"
+//   }
+// }
+// const access:string=accesstoken()
+// return {
+//   success:true,
+//   message:"Login succesfull"
+// }
+
+// }
 
 }
-
-
-
-
-},
-
-Query:{
-
-getusers:async(_parent:any,_args:RegisterArgs,_context:any,_info:any)=>{
-const res:any[]=await collection1.find()
-
-if(res.length === 0){
-  return{
-    success:false,
-    message:"No users in the database"
-  }
-}
-return res
-
-},
-getusers2:async(_parent:any,_arges:any,_context:any,_info:any)=>{
-  const res:any[]=await collection2.find();
-  if(res.length === 0){
-    return{
-      success:false,
-      message:"no user in the list"
-    }
-  }
-  return res
-  },
-
-
-getusers3:async(_parent:any,_args:any,_context:any)=>{
-const res:any[]=await collection1.aggregate([
-{$lookup:{
-  from:"user2",
-  localField:"email",
-  foreignField:"email",
-  as:"resultt"
-}}
-
-])
-if(res.length === 0){
-  return {
-    success:false,
-    message:"result is empty"
-  }
-}
-return res
-}
-
 
 }
 
 
-
-
-
-
-}

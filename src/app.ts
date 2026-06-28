@@ -5,7 +5,8 @@ import helmet from '@fastify/helmet'
 import dbconection from "./dbconection";
 import mercurius from "mercurius";
 import { queryapi } from "./controller";
-import { graphqlschema } from "./routeschema";
+import { queryschema } from "./routeschema";
+
 
 
 const app=fastify({logger:true});
@@ -13,10 +14,10 @@ const app=fastify({logger:true});
 
 app.register(formbody)
 app.register(cookie)
-app.register(helmet)
+// app.register(helmet)
 
 app.register(mercurius,{
-    schema:graphqlschema,
+    schema:queryschema,
     resolvers:queryapi,
     graphiql:true
 })

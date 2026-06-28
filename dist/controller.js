@@ -1,85 +1,65 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.queryapi = void 0;
-const schema_1 = require("./schema");
 const schema2_1 = require("./schema2");
+// import crypto from 'crypto'
+const bcrypt_1 = __importDefault(require("bcrypt"));
 exports.queryapi = {
     Mutation: {
-        registeruser: async (_parent, args, _context, _info) => {
-            const { email, password } = args;
-            if (!email || !password) {
-                throw new Error("User details missing");
-            }
-            try {
-                await schema_1.collection1.create({ email, password });
+        registeruser: async (_parent, args, _context) => {
+            const { name, email, password } = args;
+            if (!name || !email || !password) {
                 return {
-                    success: true,
-                    message: "user registered"
+                    success: false,
+                    message: "user datail is not there"
                 };
             }
-            catch (err) {
-                console.error(err);
-                throw new Error("register api failed");
-            }
-        },
-        register2: async (_parent, args, _context, _info) => {
-            const { name, email, age } = args;
-            if (!name || !email || !age) {
-                throw new Error("User details missing");
-            }
             try {
-                await schema2_1.collection2.create({ name, email, age });
+                const hash = await bcrypt_1.default.hash(password, 10);
+                await schema2_1.collection2.create({ name, email, password: hash });
                 return {
                     success: true,
-                    message: "user2 registered"
+                    message: "User registered succesfully"
                 };
             }
             catch (err) {
                 return {
                     success: false,
-                    message: "register failed"
+                    message: "registration failed"
                 };
             }
-        }
-    },
-    Query: {
-        getusers: async (_parent, _args, _context, _info) => {
-            const res = await schema_1.collection1.find();
-            if (res.length === 0) {
-                return {
-                    success: false,
-                    message: "No users in the database"
-                };
-            }
-            return res;
         },
-        getusers2: async (_parent, _arges, _context, _info) => {
-            const res = await schema2_1.collection2.find();
-            if (res.length === 0) {
-                return {
-                    success: false,
-                    message: "no user in the list"
-                };
-            }
-            return res;
-        },
-        getusers3: async (_parent, _args, _context) => {
-            const res = await schema_1.collection1.aggregate([
-                { $lookup: {
-                        from: "user2",
-                        localField: "email",
-                        foreignField: "email",
-                        as: "resultt"
-                    } }
-            ]);
-            if (res.length === 0) {
-                return {
-                    success: false,
-                    message: "result is empty"
-                };
-            }
-            return res;
-        }
+        // loginuser:async(_parent:any,args:logintype,_context:any)=>{
+        // const{email,password}=args
+        // if(!email || !password){
+        //   return {
+        //     success:false,
+        //     message:"user datail is not there"
+        //   }
+        // }
+        // const res=await collection2.findOne({email})
+        // if(!res){
+        //   return {
+        //     success:false,
+        //     message:"user is not there"
+        //   }
+        // }
+        // const compare=await bcrypt.compare(password,res.password)
+        // if(!compare){
+        //   return{
+        //     success:false,
+        //     message:"password is incorrect"
+        //   }
+        // }
+        // const access:string=accesstoken()
+        // return {
+        //   success:true,
+        //   message:"Login succesfull"
+        // }
+        // }
     }
 };
 //# sourceMappingURL=controller.js.map
