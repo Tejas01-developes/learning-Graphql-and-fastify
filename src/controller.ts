@@ -30,39 +30,39 @@ try{
   }
 }},
 
-loginuser:async(_parent:any,args:logintype,_context:any)=>{
-const{email,password}=args
+// loginuser:async(_parent:any,args:logintype,_context:any)=>{
+// const{email,password}=args
 
-if(!email || !password){
-  return {
-    success:false,
-    message:"user datail is not there"
-  }
-}
-const res=await collection2.findOne({email})
-if(!res){
-  return {
-    success:false,
-    message:"user is not there"
-  }
-}
-const compare=await bcrypt.compare(password,res.password)
-if(!compare){
-  return{
-    success:false,
-    message:"password is incorrect"
-  }
-}
-const access:string=accesstoken()
-return {
-  success:true,
-  message:"Login succesfull"
-}
+// if(!email || !password){
+//   return {
+//     success:false,
+//     message:"user datail is not there"
+//   }
+// }
+// const res=await collection2.findOne({email})
+// if(!res){
+//   return {
+//     success:false,
+//     message:"user is not there"
+//   }
+// }
+// const compare=await bcrypt.compare(password,res.password)
+// if(!compare){
+//   return{
+//     success:false,
+//     message:"password is incorrect"
+//   }
+// }
+// const access:string=accesstoken()
+// return {
+//   success:true,
+//   message:"Login succesfull"
+// }
 
-}
+// }
 
-}
+// }
 
-}
+// }
 
 
