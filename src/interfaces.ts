@@ -6,5 +6,5 @@ export interface registerusertype{
 
 export interface logintype{
 email:string,
-password:string
+age:number
 }

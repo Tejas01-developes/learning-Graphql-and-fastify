@@ -1,2 +1,2 @@
-export declare const queryschema = "\ntype Response{\nsuccess:Boolean,\nmessage:String\n}\n\n\ntype Mutation{\nregisteruser(name:String!,email:String!,password:String!):Response\nloginuser(email:String!,password:String!):Response\n}\n\n\ntype Query{\n    _empty:String\n}\n\n";
+export declare const queryschema = "\ntype Response{\nsuccess:Boolean,\nmessage:String\n}\ntype user3{\n    email:String\n    age:Int\n}\n\ntype user2{\n    name:String,\n    email:String,\n    password:String\n  result:[user3!]!\n}\n\n\n\ntype Mutation{\nadduser1(name:String!,email:String!,password:String!):Response\nadduser2(email:String!,age:Int!):Response\n}\n\n\ntype Query{\n   getuser:[user2!]!\n  \n}\n\n";
 //# sourceMappingURL=routeschema.d.ts.map

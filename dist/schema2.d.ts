@@ -1,21 +1,21 @@
 import mongoose from "mongoose";
 export declare const collection2: mongoose.Model<{
-    name: string;
     email: string;
+    name: string;
     password: string;
 } & mongoose.DefaultTimestampProps, {}, {}, {
     id: string;
 }, mongoose.Document<unknown, {}, {
-    name: string;
     email: string;
+    name: string;
     password: string;
 } & mongoose.DefaultTimestampProps, {
     id: string;
 }, {
     timestamps: true;
 }> & Omit<{
-    name: string;
     email: string;
+    name: string;
     password: string;
 } & mongoose.DefaultTimestampProps & {
     _id: mongoose.Types.ObjectId;
@@ -26,20 +26,20 @@ export declare const collection2: mongoose.Model<{
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, {
     timestamps: true;
 }, {
-    name: string;
     email: string;
+    name: string;
     password: string;
 } & mongoose.DefaultTimestampProps, mongoose.Document<unknown, {}, {
-    name: string;
     email: string;
+    name: string;
     password: string;
 } & mongoose.DefaultTimestampProps, {
     id: string;
 }, Omit<mongoose.DefaultSchemaOptions, "timestamps"> & {
     timestamps: true;
 }> & Omit<{
-    name: string;
     email: string;
+    name: string;
     password: string;
 } & mongoose.DefaultTimestampProps & {
     _id: mongoose.Types.ObjectId;
@@ -48,8 +48,8 @@ export declare const collection2: mongoose.Model<{
 }, "id"> & {
     id: string;
 }, unknown, {
-    name: string;
     email: string;
+    name: string;
     password: string;
     createdAt: NativeDate;
     updatedAt: NativeDate;
@@ -58,8 +58,8 @@ export declare const collection2: mongoose.Model<{
 } & {
     __v: number;
 }>, {
-    name: string;
     email: string;
+    name: string;
     password: string;
     createdAt: NativeDate;
     updatedAt: NativeDate;

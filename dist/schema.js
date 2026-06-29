@@ -11,10 +11,10 @@ const schema = new mongoose_1.default.Schema({
         required: true,
         unique: true
     },
-    password: {
-        type: String,
-        required: true
+    age: {
+        type: Number,
+        required: true,
     }
-});
-exports.collection1 = mongoose_1.default.model("users", schema);
+}, { timestamps: true });
+exports.collection1 = mongoose_1.default.model("user", schema);
 //# sourceMappingURL=schema.js.map

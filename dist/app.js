@@ -8,15 +8,16 @@ const formbody_1 = __importDefault(require("@fastify/formbody"));
 const cookie_1 = __importDefault(require("@fastify/cookie"));
 const dbconection_1 = __importDefault(require("./dbconection"));
 const mercurius_1 = __importDefault(require("mercurius"));
-const controller_1 = require("./controller");
+// import helmet from '@fastify/helmet'
 const routeschema_1 = require("./routeschema");
+const controller_1 = require("./controller");
 const app = (0, fastify_1.default)({ logger: true });
 app.register(formbody_1.default);
 app.register(cookie_1.default);
 // app.register(helmet)
 app.register(mercurius_1.default, {
     schema: routeschema_1.queryschema,
-    resolvers: controller_1.queryapi,
+    resolvers: controller_1.resolver,
     graphiql: true
 });
 app.listen({ port: 3000 }, async () => {

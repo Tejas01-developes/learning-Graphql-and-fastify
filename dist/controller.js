@@ -1,65 +1,47 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.queryapi = void 0;
+exports.resolver = void 0;
+const schema_1 = require("./schema");
 const schema2_1 = require("./schema2");
-// import crypto from 'crypto'
-const bcrypt_1 = __importDefault(require("bcrypt"));
-exports.queryapi = {
+exports.resolver = {
     Mutation: {
-        registeruser: async (_parent, args, _context) => {
+        adduser1: async (_parent, args, _ctx) => {
             const { name, email, password } = args;
-            if (!name || !email || !password) {
-                return {
-                    success: false,
-                    message: "user datail is not there"
-                };
-            }
-            try {
-                const hash = await bcrypt_1.default.hash(password, 10);
-                await schema2_1.collection2.create({ name, email, password: hash });
-                return {
-                    success: true,
-                    message: "User registered succesfully"
-                };
-            }
-            catch (err) {
-                return {
-                    success: false,
-                    message: "registration failed"
-                };
-            }
+            await schema2_1.collection2.create({ name, email, password });
+            return {
+                success: true,
+                message: "user added"
+            };
         },
-        // loginuser:async(_parent:any,args:logintype,_context:any)=>{
-        // const{email,password}=args
-        // if(!email || !password){
-        //   return {
-        //     success:false,
-        //     message:"user datail is not there"
-        //   }
-        // }
-        // const res=await collection2.findOne({email})
-        // if(!res){
-        //   return {
-        //     success:false,
-        //     message:"user is not there"
-        //   }
-        // }
-        // const compare=await bcrypt.compare(password,res.password)
-        // if(!compare){
-        //   return{
-        //     success:false,
-        //     message:"password is incorrect"
-        //   }
-        // }
-        // const access:string=accesstoken()
-        // return {
-        //   success:true,
-        //   message:"Login succesfull"
-        // }
-        // }
+        adduser2: async (_parent, args, _ctx) => {
+            const { email, age } = args;
+            await schema_1.collection1.create({ email, age });
+            return {
+                success: true,
+                message: "user added"
+            };
+        }
+    },
+    Query: {
+        getuser: async (_parent, _args, _ctx) => {
+            // const res:any[]=await collection2.aggregate([
+            // {$lookup:{
+            //   from:"users",
+            //   localField:"email",
+            //   foreignField:"email",
+            //   as:"result"
+            // }}
+            // ])
+            const res = await schema2_1.collection2.find();
+            return res;
+        }
+    },
+    user2: {
+        result: async (parent, _args, _ctx) => {
+            const target = parent.email;
+            const res = await schema_1.collection1.find({ email: target });
+            return res;
+        }
     }
 };
 //# sourceMappingURL=controller.js.map

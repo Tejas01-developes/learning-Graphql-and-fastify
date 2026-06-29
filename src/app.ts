@@ -1,11 +1,11 @@
 import fastify from "fastify";
 import formbody from '@fastify/formbody'
 import cookie from "@fastify/cookie";
-import helmet from '@fastify/helmet'
 import dbconection from "./dbconection";
 import mercurius from "mercurius";
-import { queryapi } from "./controller";
+// import helmet from '@fastify/helmet'
 import { queryschema } from "./routeschema";
+import { resolver } from "./controller";
 
 
 
@@ -18,7 +18,7 @@ app.register(cookie)
 
 app.register(mercurius,{
     schema:queryschema,
-    resolvers:queryapi,
+    resolvers:resolver,
     graphiql:true
 })
 

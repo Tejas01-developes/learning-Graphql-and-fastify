@@ -1,68 +1,63 @@
-// import { accesstoken } from "./generatetokens";
 import { logintype, registerusertype } from "./interfaces"
+import { collection1 } from "./schema"
 import { collection2 } from "./schema2"
-// import crypto from 'crypto'
-import bcrypt from 'bcrypt';
 
-export const queryapi={
+export const resolver={
 
 Mutation:{
-registeruser:async(_parent:any,args:registerusertype,_context:any)=>{
+ adduser1:async(_parent:any,args:registerusertype,_ctx:any)=>{
 const{name,email,password}=args
 
-if(!name || !email || !password){
-  return {
-    success:false,
-    message:"user datail is not there"
-  }
+await collection2.create({name,email,password})
+return{
+  success:true,
+  message:"user added"
 }
-try{
-  const hash=await bcrypt.hash(password,10)
-  await collection2.create({name,email,password:hash})
+},
+
+adduser2:async(_parent:any,args:logintype,_ctx:any)=>{
+  const{email,age}=args
+  
+  await collection1.create({email,age})
   return{
     success:true,
-    message:"User registered succesfully"
+    message:"user added"
   }
-}catch(err){
-  return{
-    success:false,
-    message:"registration failed"
   }
-}},
 
-// loginuser:async(_parent:any,args:logintype,_context:any)=>{
-// const{email,password}=args
 
-// if(!email || !password){
-//   return {
-//     success:false,
-//     message:"user datail is not there"
-//   }
-// }
-// const res=await collection2.findOne({email})
-// if(!res){
-//   return {
-//     success:false,
-//     message:"user is not there"
-//   }
-// }
-// const compare=await bcrypt.compare(password,res.password)
-// if(!compare){
-//   return{
-//     success:false,
-//     message:"password is incorrect"
-//   }
-// }
-// const access:string=accesstoken()
-// return {
-//   success:true,
-//   message:"Login succesfull"
-// }
 
-// }
+},
 
-// }
+Query:{
 
-// }
+getuser:async(_parent:any,_args:any,_ctx:any)=>{
+// const res:any[]=await collection2.aggregate([
+// {$lookup:{
+//   from:"users",
+//   localField:"email",
+//   foreignField:"email",
+//   as:"result"
+// }}
+  
+// ])
+const res=await collection2.find();
+
+
+
+return res
+}
+},
+user2:{
+result:async(parent:any,_args:any,_ctx:any)=>{
+const target= parent.email
+
+const res:any[]=await collection1.find({email:target})
+return res
+
+}
+}
+
+}
 
 
