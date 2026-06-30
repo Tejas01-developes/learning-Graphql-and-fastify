@@ -34,7 +34,7 @@ exports.resolver = {
             // ])
             const res = await schema2_1.collection2.find();
             return res;
-        }
+        },
     },
     user2: {
         result: async (parent, _args, _ctx) => {

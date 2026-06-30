@@ -46,17 +46,18 @@ const res=await collection2.find();
 
 
 return res
-}
+},
+
 },
 user2:{
-result:async(parent:any,_args:any,_ctx:any)=>{
-const target= parent.email
-
-const res:any[]=await collection1.find({email:target})
-return res
-
-}
-}
+  result:async(parent:any,_args:any,_ctx:any)=>{
+  const target= parent.email
+  
+  const res:any[]=await collection1.find({email:target})
+  return res
+  
+  }
+  }
 
 }
 
