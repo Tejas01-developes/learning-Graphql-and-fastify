@@ -28,4 +28,8 @@ type Query{
   
 }
 
+type Subscription{
+  useradded: user2!
+}
+
 `

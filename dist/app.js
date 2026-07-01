@@ -18,7 +18,8 @@ app.register(cookie_1.default);
 app.register(mercurius_1.default, {
     schema: routeschema_1.queryschema,
     resolvers: controller_1.resolver,
-    graphiql: true
+    graphiql: true,
+    subscription: true
 });
 app.listen({ port: 3000 }, async () => {
     await dbconection_1.default.connect();

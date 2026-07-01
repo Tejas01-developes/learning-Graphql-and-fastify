@@ -5,15 +5,35 @@ import { collection2 } from "./schema2"
 export const resolver={
 
 Mutation:{
- adduser1:async(_parent:any,args:registerusertype,_ctx:any)=>{
-const{name,email,password}=args
+//  adduser1:async(_parent:any,args:registerusertype,_ctx:any)=>{
+// const{name,email,password}=args
 
-await collection2.create({name,email,password})
-return{
-  success:true,
-  message:"user added"
-}
-},
+// await collection2.create({name,email,password})
+// return{
+//   success:true,
+//   message:"user added"
+// }
+// },
+adduser1:async(_parent:any,args:registerusertype,_ctx:any)=>{
+  const{name,email,password}=args
+  
+  await collection2.create({name,email,password})
+
+await _ctx.pubsub.publish({
+  topic:"adduser",
+  payload:{
+    useradded:{
+      name,
+      email,
+      password
+    }
+  }
+})
+  return{
+    success:true,
+    message:"user added"
+  }
+  },
 
 adduser2:async(_parent:any,args:logintype,_ctx:any)=>{
   const{email,age}=args
@@ -57,7 +77,23 @@ user2:{
   return res
   
   }
+  },
+
+
+Subscription:{
+  useradded:{
+   subscribe: async(_parent:any,_args:any,ctx:any)=>{
+ return await ctx.pubsub.subscribe("adduser")
   }
+  }
+}
+
+
+
+
+
+
+
 
 }
 

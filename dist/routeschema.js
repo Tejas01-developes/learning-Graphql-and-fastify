@@ -31,5 +31,9 @@ type Query{
   
 }
 
+type Subscription{
+  useradded: user2!
+}
+
 `;
 //# sourceMappingURL=routeschema.js.map

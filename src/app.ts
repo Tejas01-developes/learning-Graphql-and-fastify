@@ -19,7 +19,8 @@ app.register(cookie)
 app.register(mercurius,{
     schema:queryschema,
     resolvers:resolver,
-    graphiql:true
+    graphiql:true,
+    subscription:true
 })
 
 

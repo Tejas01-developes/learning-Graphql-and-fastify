@@ -34,5 +34,10 @@ export declare const resolver: {
     user2: {
         result: (parent: any, _args: any, _ctx: any) => Promise<any[]>;
     };
+    Subscription: {
+        useradded: {
+            subscribe: (_parent: any, _args: any, ctx: any) => Promise<any>;
+        };
+    };
 };
 //# sourceMappingURL=controller.d.ts.map
